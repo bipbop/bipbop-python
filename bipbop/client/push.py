@@ -25,16 +25,16 @@ class Push:
                 Push.PARAMETER_PUSH_QUERY: query,
                 Push.PARAMETER_PUSH_CALLBACK: push_callback
             })
-        return self.webservice.post("INSERT INTO 'PUSH'.'JOB'", params)
+        return self.webservice.post("INSERT INTO 'PUSH'.'JOB'", params).find("./body/id").text
 
     def delete(self, id):
-        return self.webservice.post("DELETE FROM 'PUSH'.'JOB'", 
+        return self.webservice.post("DELETE FROM 'PUSH'.'JOB'",
             {
                 'id': id
             })
 
     def open(self, id, label=None):
-        return self.webservice.post("SELECT FROM 'PUSH'.'DOCUMENT'", 
+        return self.webservice.post("SELECT FROM 'PUSH'.'DOCUMENT'",
             {
                 'id': id,
                 'label': label
