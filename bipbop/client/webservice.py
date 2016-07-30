@@ -1,11 +1,14 @@
 # BIPBOP
 # -*- coding: utf-8 -*-
 
+from StringIO import StringIO
+
 import httplib
 import urllib
 import ssl
 import xml.etree.ElementTree as ET
 import bipbop.client.exception
+import gzip
 
 ssl._create_default_https_context = ssl._create_unverified_context
 
@@ -23,7 +26,7 @@ class WebService:
     def post(self, query, params=None):
         conn = httplib.HTTPSConnection(WebService.ENDPOINT)
         #conn.set_debuglevel(5)
-        
+
         data = {}
         data.update(params or {})
         data.update({
@@ -31,13 +34,14 @@ class WebService:
             WebService.PARAMETER_APIKEY: self.api_key
         })
 
-        conn.request('POST', '', urllib.urlencode(data), 
-            {'Referer': WebService.REFERRER, 'Content-type': 'application/x-www-form-urlencoded'})
+        conn.request('POST', '', urllib.urlencode(data), {
+            'Referer': WebService.REFERRER,
+            'Content-type': 'application/x-www-form-urlencoded',
+            'Accept-encoding': 'gzip'
+        })
         r = conn.getresponse()
-        str = r.read()
-        #print str
-        
-        dom = ET.fromstring(str)
+
+        dom = ET.fromstring(gzip.GzipFile(fileobj=StringIO(r.read())).read())
         self._assert(dom)
 
         return ET.ElementTree(dom)
