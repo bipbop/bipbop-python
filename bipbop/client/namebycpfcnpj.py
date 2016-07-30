@@ -1,26 +1,26 @@
 # BIPBOP
 # -*- coding: utf-8 -*-
 
-import bipbop.client.cpfcnpj
-import bipbop
+from cpfcnpj import validate_cpf, validate_cnpj
+from webservice import WebService
+from exception import Exception
 
 class NameByCPFCNPJ:
-    def evaluate(cpfcnpj, birthday, apikey):
+    def evaluate(cpfcnpj, birthday, apikey = None):
         if validate_cpf(cpfcnpj):
             if birthday is None:
-                raise bipbop.client.Exception("É necessário a data de nascimento para consultar um CPF.")
+                raise Exception("É necessário a data de nascimento para consultar um CPF.")
         elif validate_cnpj(cpfcnpj):
             pass
         else:
-            raise bipbop.client.Exception("O documento informado não é um CPF ou CNPJ válido.")
+            raise Exception("O documento informado não é um CPF ou CNPJ válido.")
 
-        ws = bipbop.client.WebService()
-        ws.post("SELECT FROM 'BIPBOPJS'.'CPFCNPJ'",
+        ws = WebService(apikey)
+        return ws.post("SELECT FROM 'BIPBOPJS'.'CPFCNPJ'",
             {
                 'documento': cpfcnpj,
                 'nascimento': birthday
-            })
-            
-        
-    evaluate = staticmethod(evaluate)
+            }).find("./body/nome").text
 
+
+    evaluate = staticmethod(evaluate)
