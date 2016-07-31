@@ -20,7 +20,7 @@ O primeiro passo é saber quais são esses bancos. Para isso temos a classe `Ser
 ```python
 from bipbop.client import WebService, ServiceDiscovery
 
-ws = WebService('907703004bbdd0a7f11e0398b5f200ac')
+ws = WebService('#SUA API KEY#')
 sd = ServiceDiscovery.factory(ws)
 
 print '== Listando todos os databases =='
