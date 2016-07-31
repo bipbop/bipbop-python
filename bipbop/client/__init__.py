@@ -9,4 +9,5 @@ from webservice import WebService
 from servicediscovery import ServiceDiscovery
 from servicediscoveryjuristek import ServiceDiscoveryJuristek
 from push import Push
+from pushjuristek import PushJuristek
 from receiver import Receiver

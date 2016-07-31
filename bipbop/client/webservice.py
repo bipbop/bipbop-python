@@ -25,7 +25,6 @@ class WebService:
 
     def post(self, query, params=None):
         conn = httplib.HTTPSConnection(WebService.ENDPOINT)
-        #conn.set_debuglevel(5)
 
         data = {}
         data.update(params or {})

@@ -15,7 +15,7 @@ class Push:
     PARAMETER_PUSH_CALLBACK = "pushCallback"
 
     def __init__(self, webservice):
-        self.webservice = webservice
+        self.ws = webservice
 
     def create(self, label, push_callback, query, parameters):
         params = {}
@@ -25,30 +25,30 @@ class Push:
                 Push.PARAMETER_PUSH_QUERY: query,
                 Push.PARAMETER_PUSH_CALLBACK: push_callback
             })
-        return self.webservice.post("INSERT INTO 'PUSH'.'JOB'", params).find("./body/id").text
+        return self.ws.post("INSERT INTO 'PUSH'.'JOB'", params).find("./body/id").text
 
     def delete(self, id):
-        return self.webservice.post("DELETE FROM 'PUSH'.'JOB'",
+        return self.ws.post("DELETE FROM 'PUSH'.'JOB'",
             {
                 'id': id
             })
 
     def open(self, id, label=None):
-        return self.webservice.post("SELECT FROM 'PUSH'.'DOCUMENT'",
+        return self.ws.post("SELECT FROM 'PUSH'.'DOCUMENT'",
             {
                 'id': id,
                 'label': label
             })
 
     def change_interval(self, id, interval):
-        return self.webservice.post("UPDATE 'PUSH'.'PUSHINTERVAL'",
+        return self.ws.post("UPDATE 'PUSH'.'PUSHINTERVAL'",
             {
                 Push.PARAMETER_PUSH_ID: id,
                 Push.PARAMETER_PUSH_INTERVAL: interval
             })
 
     def change_max_version(self, id, max_version):
-        return self.webservice.post("UPDATE 'PUSH'.'PUSHMAXVERSION'",
+        return self.ws.post("UPDATE 'PUSH'.'PUSHMAXVERSION'",
             {
                 Push.PARAMETER_PUSH_ID: id,
                 Push.PARAMETER_PUSH_MAX_VERSION: max_version

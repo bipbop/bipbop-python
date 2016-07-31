@@ -1,7 +1,7 @@
 # BIPBOP
 # -*- coding: utf-8 -*-
 
-import bipbop.client.push
+from push import Push
 
 class PushJuristek(Push):
 
@@ -26,4 +26,4 @@ class PushJuristek(Push):
             PushJuristek.PARAMETER_PUSH_JURISTEK_CALLBACK: push_callback
         })
 
-        self.ws.post("INSERT INTO 'PUSHJURISTEK'.'JOB'", parameters)
+        return self.ws.post("INSERT INTO 'PUSHJURISTEK'.'JOB'", parameters).find("./body/id").text
