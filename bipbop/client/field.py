@@ -23,5 +23,5 @@ class Field:
         return self.get('name')
 
     def group_options(self):
-        return [(g.attr('value'), self.read_options(g.findall('./option'))) 
+        return [(g.get('value'), self.read_options(g.findall('./option'))) 
                     for g in self.domNode.findall('./optgroup')]
