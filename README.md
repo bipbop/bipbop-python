@@ -32,45 +32,44 @@ for dbinfo in sd.list_databases():
 
 Vamos tomar como exemplo o database __PLACA__ e descobrir quais tabelas podemos consultar e com quais campos:
 
-```php
-$databasePlaca = $serviceDiscovery->getDatabase("PLACA");
-printf("\n== Listando tabelas de PLACA ==\n\n");
-foreach ($databasePlaca->listTables() as $tableInformation) {
-    /* @var $database \BIPBOP\Client\Database */
-    $table = $databasePlaca->getTable($tableInformation["name"]);
-    printf("Available Table: %s\nDescription: %s\nURL: %s\n\n", $table->name(), $table->get("description"), $table->get("url"));
-}
+```python
+dbplaca = sd.get_database('PLACA')
+
+print '== Listando tabelas de PLACA =='
+for tbinfo in dbplaca.list_tables():
+    table = dbplaca.get_table(tbinfo.get('name'))
+    print 'Table: %s ; Description: %s ; URL: %s' % (table.name(), table.get('description'), table.get('url'))
 ```
 
 Nossa listagem retornou a tabela __CONSULTA__ mas quais serão os campos que podemos usar como parâmetros em nossa consulta? Vamos descobrir:
 
-```php
-$tableConsulta = $databasePlaca->getTable("CONSULTA");
-printf("\n== Listando campos de CONSULTA ==\n\n");
-foreach ($tableConsulta->getFields() as $field) {
-	printf("Available Field: %s\n\n", $field->name());
-}
+```python
+tblconsulta = dbplaca.get_table('CONSULTA')
+
+for field in tblconsulta.get_fields():
+    print 'Field: %s' % field.get('name')
+
 ```
 
 Nossa busca retornou o campo __placa__.
 
 Com esses dados em mãos torna-se simples montar nossa consulta. Basta utilizarmos o método *post* de `WebService` da seguinte forma:
 
-```php
-$dom = $webService->post("SELECT FROM 'PLACA'.'CONSULTA'", [
-    "placa" => "XXX9999"
-]);
+```python
+dom = ws.post("SELECT FROM 'PLACA'.'CONSULTA'", {'placa': 'XXX9999'})
 ```
 
-Esse método retorna um [DOMDocument](http://php.net/manual/en/class.domdocument.php) que pode ser manipulado utilizando a [DOMXPath](http://php.net/manual/en/class.domxpath.php) ambas as classes nativas do PHP.
+Esse método retorna um [ElementTree](https://docs.python.org/2/library/xml.etree.elementtree.html) o qual suporta XPath e escrita do XML para arquivo.
 
 ```php
-// Visualizando as tags do documento retornado
-printf($dom->saveXML());
+# Visualizando o XML retornado
+print ET.tostring(dom.getroot())
+
+# Salvando o XML
+dom.write('output.xml')
 
 // Recuperando a marca do veículo
-$xpath = new \DOMXpath($dom);
-printf($xpath->evaluate("string(/BPQL/body/marca/.)"));
+print dom.find('./body/marca').text
 ```
 
 # Mais informações
