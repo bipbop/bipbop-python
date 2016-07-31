@@ -61,14 +61,16 @@ dom = ws.post("SELECT FROM 'PLACA'.'CONSULTA'", {'placa': 'XXX9999'})
 
 Esse método retorna um [ElementTree](https://docs.python.org/2/library/xml.etree.elementtree.html) o qual suporta XPath e escrita do XML para arquivo.
 
-```php
+```python
+import xml.etree.ElementTree as ET
+
 # Visualizando o XML retornado
 print ET.tostring(dom.getroot())
 
 # Salvando o XML
 dom.write('output.xml')
 
-// Recuperando a marca do veículo
+# Recuperando a marca do veículo
 print dom.find('./body/marca').text
 ```
 
