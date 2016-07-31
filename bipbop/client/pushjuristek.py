@@ -15,7 +15,7 @@ class PushJuristek(Push):
             data = []
             for key, value in params.iteritems():
                 data.append("'%s' = '%s'" % (key, value))
-            query += ' ' if query.upper().find('WHERE') != -1 else 'WHERE '
+            query += ' ' if query.upper().find('WHERE') != -1 else ' WHERE '
             query += ' AND '.join(data)            
 
         parameters.update(params)
