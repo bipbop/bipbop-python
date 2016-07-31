@@ -70,7 +70,7 @@ print ET.tostring(dom.getroot())
 # Salvando o XML
 dom.write('output.xml')
 
-// Recuperando a marca do veículo
+# Recuperando a marca do veículo
 print dom.find('./body/marca').text
 ```
 
