@@ -3,6 +3,7 @@
 from distutils.core import setup
 
 setup(name='bipbop',
+        license='MIT',
         version='0.1',
         description='Official library for BIPBOP API',
         author='Felipe Pena',
