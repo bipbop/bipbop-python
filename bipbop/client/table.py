@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import bipbop
+import push
 
 class Table:
 
@@ -20,11 +21,14 @@ class Table:
         for field in fields:
             yield bipbop.client.Field(self, self.db, field, self.dom)
 
-    def validate_parameters(self):
+    def validate_parameters(self, params):
         pass
 
-    def generate_push(self, parameters, label, push_callback, push_class):
-        pass
+    def generate_push(self, parameters, label, push_callback, push_class=push.Push):
+        push_obj = push_class(self.ws)
+        self.validate_parameters(parameters)
+        query = "SELECT FROM '%s'.'%s'" % (self.db.name(), self.name())
+        return push_obj.create(label, push_callback, query, parameters)
 
     def get(self, attr):
         return self.domNode.get(attr)

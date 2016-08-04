@@ -39,8 +39,10 @@ class WebService:
             'Accept-encoding': 'gzip'
         })
         r = conn.getresponse()
-
-        dom = ET.fromstring(gzip.GzipFile(fileobj=StringIO(r.read())).read())
+        if r.getheader('content-encoding') == 'gzip':
+            dom = ET.fromstring(gzip.GzipFile(fileobj=StringIO(r.read())).read())
+        else:
+            dom = ET.fromstring(r.read())
         self._assert(dom)
 
         return ET.ElementTree(dom)

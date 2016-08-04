@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import bipbop
-#import xml.etree.ElementTree as ET
 
 class Database:
 
@@ -14,8 +13,6 @@ class Database:
         self.ws = ws
         self.domNode = domNode
         self.dom = dom
-
-        #print ET.tostring(domNode)
 
     def name(self):
         return self.domNode.get('name')
