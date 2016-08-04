@@ -98,15 +98,15 @@ __ABRINDO__ um PUSH
 
 Com este método é possível visualizar o documento bpql capturado. 
 
-```ruby
-puts push.open(id)
+```python
+print push.open(id)
 ```
 
 __REMOVENDO__ um PUSH
 
 Com este método é possível remover determinado PUSH da lista de uma apiKey.
 
-```ruby
+```python
 push.delete(id)
 ```
 
