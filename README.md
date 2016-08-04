@@ -74,6 +74,42 @@ dom.write('output.xml')
 print dom.find('./body/marca').text
 ```
 
+#PUSH
+
+Criando um __PUSH__
+
+A criação de PUSHES permite captura/monitoramento, sobre uma determinada fonte de dados, através de uma consulta segundo o padrão bpql.
+
+```python
+from bipbop.client import Push
+push = Push(webservice)
+id = push.create('suaLabel', 'urlDeCallBack' , "SELECT FROM 'PLACA'.'CONSULTA'", {'placa' => 'XXX0000'})
+```
+
+Nesse caso para a sua url de callback, será retornado o documento bpql gerado, e são enviados os seguintes parametros no header do server:
+
+```
+HTTP_X_BIPBOP_VERSION
+HTTP_X_BIPBOP_DOCUMENT_ID
+HTTP_X_BIPBOP_DOCUMENT_LABEL
+```
+
+__ABRINDO__ um PUSH
+
+Com este método é possível visualizar o documento bpql capturado. 
+
+```ruby
+puts push.open(id)
+```
+
+__REMOVENDO__ um PUSH
+
+Com este método é possível remover determinado PUSH da lista de uma apiKey.
+
+```ruby
+push.delete(id)
+```
+
 # Mais informações
 
 Para mais informações e aquisição de uma chave de api acesse [http://api.bipbop.com.br](http://api.bipbop.com.br).
