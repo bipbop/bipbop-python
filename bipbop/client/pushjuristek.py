@@ -1,7 +1,7 @@
 # BIPBOP
 # -*- coding: utf-8 -*-
 
-from push import Push
+from .push import Push
 
 class PushJuristek(Push):
 
@@ -13,7 +13,7 @@ class PushJuristek(Push):
 
         if len(params):
             data = []
-            for key, value in params.iteritems():
+            for key, value in params.items():
                 data.append("'%s' = '%s'" % (key, value))
             query += ' ' if query.upper().find('WHERE') != -1 else ' WHERE '
             query += ' AND '.join(data)            

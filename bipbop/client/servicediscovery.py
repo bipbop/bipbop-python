@@ -13,6 +13,7 @@ class ServiceDiscovery:
         self.ws = ws
         self.list_dbs = dbs
         
+    @staticmethod
     def factory(ws, params=None):
         return ServiceDiscovery(ws, ws.post("SELECT FROM 'INFO'.'INFO'", params or []))
 

@@ -35,7 +35,7 @@ def validate_cpf(cpf):
         return False
 
     # Pega apenas os 9 primeiros dígitos do CPF e gera os 2 dígitos que faltam
-    inteiros = map(int, cpf)
+    inteiros = list(map(int, cpf))
     novo = inteiros[:9]
 
     while len(novo) < 11:
@@ -84,7 +84,7 @@ def validate_cnpj(cnpj):
         return False
 
     # Pega apenas os 12 primeiros dígitos do CNPJ e gera os 2 dígitos que faltam
-    inteiros = map(int, cnpj)
+    inteiros = list(map(int, cnpj))
     novo = inteiros[:12]
 
     prod = [5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2]

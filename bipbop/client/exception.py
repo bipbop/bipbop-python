@@ -3,7 +3,7 @@
 
 class Exception(Exception):
 
-    INVALID_ARGUMENT = 1; 
+    INVALID_ARGUMENT = 1 
 
     def __init__(self, message):
         self.message = message

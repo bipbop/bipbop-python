@@ -10,7 +10,7 @@ class MainHandler(tornado.web.RequestHandler):
         self.receiver = bipbop.client.Receiver(self.request.headers)
         xml = self.receiver.document(self.request.body)
 
-        print ET.tostring(xml.getroot())
+        print(ET.tostring(xml.getroot()))
 
 def make_app():
     return tornado.web.Application([

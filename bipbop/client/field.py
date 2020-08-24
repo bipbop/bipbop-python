@@ -11,7 +11,7 @@ class Field:
         self.dom = dom
 
     def get(self, attr):
-        return self.domNode.get(attr);
+        return self.domNode.get(attr)
 
     def read_options(self, nodeList):
         return [ ( n.get('value'), n.text ) for n in nodeList ]

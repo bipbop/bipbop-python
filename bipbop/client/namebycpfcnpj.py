@@ -1,11 +1,12 @@
 # BIPBOP
 # -*- coding: utf-8 -*-
 
-from cpfcnpj import validate_cpf, validate_cnpj
-from webservice import WebService
-from exception import Exception
+from .cpfcnpj import validate_cpf, validate_cnpj
+from .webservice import WebService
+from .exception import Exception
 
 class NameByCPFCNPJ:
+    @staticmethod
     def evaluate(cpfcnpj, birthday, apikey = None):
         if validate_cpf(cpfcnpj):
             if birthday is None:
@@ -21,6 +22,3 @@ class NameByCPFCNPJ:
                 'documento': cpfcnpj,
                 'nascimento': birthday
             }).find("./body/nome").text
-
-
-    evaluate = staticmethod(evaluate)

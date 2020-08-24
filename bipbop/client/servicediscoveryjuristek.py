@@ -1,12 +1,13 @@
 # BIPBOP
 # -*- coding: utf-8 -*-
 
-from servicediscovery import ServiceDiscovery
+from .servicediscovery import ServiceDiscovery
 
 class ServiceDiscoveryJuristek(ServiceDiscovery):
 
     PARAMETER_OAB = "OAB"
 
+    @staticmethod
     def factory(ws, params=None):
         parameters = {}
         data = None
@@ -22,4 +23,3 @@ class ServiceDiscoveryJuristek(ServiceDiscovery):
         parameters.update({ 'data':  data })
         return ServiceDiscovery(ws, ws.post("SELECT FROM 'JURISTEK'.'INFO'", parameters))
 
-    factory = staticmethod(factory)

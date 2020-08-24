@@ -1,1 +1,1 @@
-import client
+from . import client
