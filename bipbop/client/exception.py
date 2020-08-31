@@ -9,7 +9,7 @@ class Exception(Exception):
         self.message = message
 
     def __str__(self):
-        return self.message.encode('utf-8')
+        return self.message
     
     def get_bipbop_code(self):
         return self.bipbop_code
